@@ -1,0 +1,29 @@
+{
+  "preset": "supabase",
+  "schemas": ["public"],
+  "tenantColumn": ["org_id", "tenant_id"],
+  "exclude": ["schema_migrations"],
+  "tables": {
+    "organizations": { "tenant": "id" },
+    "invoice_items": { "tenant": "(select i.org_id from invoices i where i.id = r.invoice_id)" },
+    "currencies": { "shared": true }
+  },
+  "principals": [
+    {
+      "name": "owner of org A",
+      "tenant": "6f1c0e52-0000-4000-8000-00000000000a",
+      "claims": { "sub": "1b9d6bcd-0000-4000-8000-0000000000a1" }
+    },
+    {
+      "name": "member of org B",
+      "tenant": "6f1c0e52-0000-4000-8000-00000000000b",
+      "claims": { "sub": "1b9d6bcd-0000-4000-8000-0000000000b1" }
+    },
+    {
+      "name": "consultant in A and B",
+      "tenants": ["6f1c0e52-0000-4000-8000-00000000000a", "6f1c0e52-0000-4000-8000-00000000000b"],
+      "claims": { "sub": "1b9d6bcd-0000-4000-8000-0000000000c1" }
+    },
+    { "name": "anonymous visitor" }
+  ]
+}

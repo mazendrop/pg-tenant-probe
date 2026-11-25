@@ -1,0 +1,16 @@
+{
+  "preset": "supabase",
+  "schemas": ["public"],
+  "tenantColumn": "tenant_id",
+  "tables": {
+    "tenants": { "tenant": "id" },
+    "invoice_lines": { "tenant": "(select i.tenant_id from invoices i where i.id = r.invoice_id)" },
+    "payments": { "tenant": "(select i.tenant_id from invoices i where i.id = r.invoice_id)" },
+    "countries": { "shared": true }
+  },
+  "principals": [
+    { "name": "alice", "tenant": "acme", "claims": { "sub": "00000000-0000-0000-0000-00000000000a" } },
+    { "name": "bob", "tenant": "globex", "claims": { "sub": "00000000-0000-0000-0000-00000000000b" } },
+    { "name": "anon" }
+  ]
+}

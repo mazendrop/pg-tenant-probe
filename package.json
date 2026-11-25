@@ -1,0 +1,63 @@
+{
+  "name": "pg-tenant-probe",
+  "version": "0.1.0",
+  "description": "Prove that Postgres row-level security keeps tenants apart: logs in as each tenant and checks every table and view for rows of other tenants.",
+  "keywords": [
+    "postgres",
+    "postgresql",
+    "row-level-security",
+    "rls",
+    "multi-tenant",
+    "tenant-isolation",
+    "supabase",
+    "security-testing",
+    "cli"
+  ],
+  "license": "MIT",
+  "author": "Mazen Abdallah (https://github.com/mazendrop)",
+  "homepage": "https://github.com/mazendrop/pg-tenant-probe#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazendrop/pg-tenant-probe.git"
+  },
+  "bugs": "https://github.com/mazendrop/pg-tenant-probe/issues",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "pg-tenant-probe": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.6.0",
+    "@electric-sql/pglite-socket": "^0.3.0",
+    "@types/node": "^24.0.0",
+    "@types/pg": "^8.23.1",
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.1"
+  }
+}
